@@ -4,18 +4,16 @@ import FieldContainer from './FieldContainer.vue';
 import { forEach, isFunction, isNil } from 'lodash';
 import { IModel, ISchema, TField } from '@/interfaces';
 
-const dubeContext = this || {};
-
 const props = defineProps({
   schema: {
     type: Object as PropType<ISchema>,
-    require: true,
+    require: true
   },
   model: {
     type: Object as PropType<IModel>,
-    require: true,
+    require: true
   },
-  multiple: Boolean,
+  multiple: Boolean
 });
 
 const fields = computed(() => {
@@ -41,13 +39,7 @@ const fieldVisible = (field: TField) => {
 <template>
   <div class="dube-field-group">
     <template v-for="(field, idx) in fields">
-      <FieldContainer
-        :key="`${idx}`"
-        v-if="fieldVisible(field)"
-        :dubeContext="dubeContext"
-        :fieldSchema="field"
-        :model="model"
-      ></FieldContainer>
+      <FieldContainer :key="`${idx}`" v-if="fieldVisible(field)" :fieldSchema="field" :model="model"></FieldContainer>
     </template>
   </div>
 </template>

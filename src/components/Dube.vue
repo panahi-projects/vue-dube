@@ -14,7 +14,7 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="dube" :data-cy-id="schema?.id" data-cy-class="dube">
+  <div class="dube" :data-cy-id="schema?.fieldId" data-cy-class="dube">
     <FieldGroup :schema="schema" :model="model"></FieldGroup>
   </div>
 </template>
