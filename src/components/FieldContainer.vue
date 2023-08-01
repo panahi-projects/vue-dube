@@ -15,7 +15,7 @@ export default defineComponent({
       default: {}
     }
   }, //end props
-
+  emits: ['model-updated'],
   setup(props) {
     let dynamicComponent = shallowRef<any>(null);
 
@@ -43,7 +43,12 @@ export default defineComponent({
     return {
       dynamicComponent
     };
-  } //end setup
+  }, //end setup
+  methods: {
+    onModelUpdated(newValue: any, model: string) {
+      this.$emit('model-updated', newValue, model);
+    }
+  }
 }); //end defineComponent
 </script>
 <template>
@@ -54,6 +59,7 @@ export default defineComponent({
       :is="dynamicComponent"
       :model="model"
       :schema="fieldSchema"
+      @model-updated="onModelUpdated"
     ></component>
   </div>
 </template>

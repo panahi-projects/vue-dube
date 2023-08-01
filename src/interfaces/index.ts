@@ -4,7 +4,7 @@ export type TDynamic = {
 export type TField = {
   fieldId: string;
   fieldType: string;
-  model?: string;
+  model: string;
   [key: string]: any;
 };
 export interface ISchema {
