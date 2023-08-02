@@ -95,6 +95,8 @@ export default defineComponent({
     <component
       ref="child"
       :id="`field-${getFieldID(fieldSchema)}`"
+      :class="fieldSchema.wrapperClasses"
+      :style="fieldSchema.wrapperStyles"
       :is="dynamicComponent"
       :model="model"
       :schema="fieldSchema"

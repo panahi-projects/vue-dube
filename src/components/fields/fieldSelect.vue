@@ -178,7 +178,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <div :id="'_' + schema.fieldId" :class="schema.parentClasses" :style="schema.parentStyles">
+  <div :class="schema.parentClasses" :style="schema.parentStyles">
     <template v-if="schema.isReadOnly !== true">
       <select
         :id="schema.fieldId"

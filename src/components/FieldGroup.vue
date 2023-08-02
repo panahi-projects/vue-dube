@@ -31,11 +31,6 @@ export default defineComponent({
       return res;
     }
   },
-  // setup(props){
-  //   return {
-  //     props
-  //   }
-  // },
   methods: {
     fieldVisible(field: TField) {
       const vm = this;

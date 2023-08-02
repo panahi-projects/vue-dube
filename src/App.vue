@@ -94,6 +94,37 @@ const schema = ref<any>({
           name: 'Sari'
         }
       ]
+    },
+    {
+      fieldId: 'languages',
+      fieldType: 'Checkbox',
+      label: 'Languages:',
+      model: 'languages',
+      containerClasses: 'row mb-3',
+      labelClasses: 'col-md-2',
+      wrapperClasses: 'col-md-10',
+      optionsLabelClssses: 'form-check-label',
+      parentClasses: 'form-check form-check-inline',
+      fieldClasses: 'form-check-input',
+      isReadOnly: false,
+      values: [
+        {
+          id: 'english',
+          name: 'English'
+        },
+        {
+          id: 'russian',
+          name: 'Russian'
+        },
+        {
+          id: 'germany',
+          name: 'Germany'
+        },
+        {
+          id: 'turkish',
+          name: 'Turkish'
+        }
+      ]
     }
   ]
 });
@@ -101,7 +132,8 @@ const model = ref<any>({
   firstName: '',
   lastName: '',
   seniorityLevel: { id: 'senior', name: 'Senior', rank: 4 },
-  city: 'tehran'
+  city: 'tehran',
+  languages: { english: { id: 'english', name: 'English', _checked: true } }
 });
 const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;
