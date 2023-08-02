@@ -125,6 +125,19 @@ const schema = ref<any>({
           name: 'Turkish'
         }
       ]
+    },
+    {
+      fieldId: 'bio',
+      label: 'Bio',
+      model: 'bio',
+      fieldType: 'Textarea',
+      containerClasses: 'row mb-3',
+      wrapperClasses: 'col-sm-10',
+      labelClasses: 'col-form-label col-sm-2',
+      fieldClasses: 'form-control',
+      rows: 3,
+      placeholder: 'Type your bio here...',
+      max: 256
     }
   ]
 });
@@ -133,7 +146,8 @@ const model = ref<any>({
   lastName: '',
   seniorityLevel: { id: 'senior', name: 'Senior', rank: 4 },
   city: 'tehran',
-  languages: { english: { id: 'english', name: 'English', _checked: true } }
+  languages: { english: { id: 'english', name: 'English', _checked: true } },
+  bio: ''
 });
 const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;
