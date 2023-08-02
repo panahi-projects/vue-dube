@@ -31,6 +31,22 @@ const schema = ref<any>({
       fieldClasses: 'form-control'
     },
     {
+      fieldId: 'gender',
+      model: 'gender',
+      fieldType: 'Radio',
+      label: 'Gender',
+      values: [
+        {
+          id: 'male',
+          name: 'Male'
+        },
+        {
+          id: 'female',
+          name: 'Female'
+        }
+      ]
+    },
+    {
       fieldId: 'seniorityLevel',
       fieldType: 'Select',
       label: 'Seniority Level',
