@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PropType, computed, defineComponent } from 'vue';
+import { PropType, defineComponent } from 'vue';
 import FieldContainer from './FieldContainer.vue';
 import { forEach, isFunction, isNil } from 'lodash';
 import { IModel, ISchema, TField } from '@/interfaces';
@@ -31,7 +31,11 @@ export default defineComponent({
       return res;
     }
   },
-
+  // setup(props){
+  //   return {
+  //     props
+  //   }
+  // },
   methods: {
     fieldVisible(field: TField) {
       const vm = this;
@@ -47,7 +51,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <div class="dube-field-group">
+  <div class="dube-field-group" :class="(schema as ISchema).groupFieldClasses">
     <template v-for="(field, idx) in fields">
       <FieldContainer
         :key="`${idx}`"

@@ -10,6 +10,7 @@ export type TField = {
 export interface ISchema {
   fieldId: string;
   backRoute?: string;
+  groupFieldClasses?: string;
   fields: TField[];
 }
 export interface IModel extends TDynamic {}

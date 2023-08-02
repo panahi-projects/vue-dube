@@ -79,11 +79,18 @@ export default defineComponent({
 }); //end defineComponent
 </script>
 <template>
-  <div v-if="dynamicComponent" class="dube-field-container">
+  <div
+    v-if="dynamicComponent"
+    class="dube-field-container"
+    :class="fieldSchema.containerClasses"
+    :style="fieldSchema.containerStyles"
+  >
     <label
       v-if="fieldSchema.label"
       v-html="fieldFunctionHandler(fieldSchema, 'label')"
       :for="getFieldID(fieldSchema)"
+      :class="fieldSchema.labelClasses"
+      :style="fieldSchema.labelStyles"
     ></label>
     <component
       ref="child"
