@@ -1,25 +1,142 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { DynamicBuilder } from '.';
-const schema = {
-  id: 'schema1',
+
+//the classes that are use in the below shcema is based on Bootstrap 5
+const schema = ref<any>({
+  fieldId: 'schema1',
+  groupFieldClasses: '',
   fields: [
     {
-      fieldId: '1',
-      type: 'Textbox',
-      label: 'Text 1',
-      model: 'txt1'
+      fieldId: 'firstName',
+      fieldType: 'Textbox',
+      label: 'First Name',
+      model: 'firstName',
+      inputType: 'text',
+      containerClasses: 'row mb-3',
+      parentClasses: 'col-sm-10',
+      labelClasses: 'col-form-label col-sm-2',
+      fieldClasses: 'form-control'
     },
     {
-      fieldId: '2',
-      type: 'Textbox',
-      label: 'Text 2',
-      model: 'txt2'
+      fieldId: 'lastName',
+      fieldType: 'Textbox',
+      label: (model: string, field: any) => field.reservedLabelName,
+      model: 'lastName',
+      inputType: 'text',
+      reservedLabelName: 'Last Name',
+      containerClasses: 'row mb-3',
+      parentClasses: 'col-sm-10',
+      labelClasses: 'col-form-label col-sm-2',
+      fieldClasses: 'form-control'
+    },
+    {
+      fieldId: 'seniorityLevel',
+      fieldType: 'Select',
+      label: 'Seniority Level',
+      model: 'seniorityLevel',
+      containerClasses: 'row mb-3',
+      parentClasses: 'col-sm-10',
+      labelClasses: 'col-form-label col-sm-2',
+      fieldClasses: 'form-select',
+      values: [
+        {
+          id: 'junior',
+          name: 'Junior',
+          rank: 4
+        },
+        {
+          id: 'medior',
+          name: 'Medior',
+          rank: 3
+        },
+        {
+          id: 'senior',
+          name: 'Senior',
+          rank: 2
+        },
+        {
+          id: 'lead',
+          name: 'Lead',
+          rank: 1
+        }
+      ]
+    },
+    {
+      fieldId: 'city',
+      fieldType: 'Select',
+      label: 'City',
+      model: 'city',
+      valueType: 'string',
+      containerClasses: 'row mb-3',
+      parentClasses: 'col-sm-10',
+      labelClasses: 'col-form-label col-sm-2',
+      fieldClasses: 'form-select',
+      values: [
+        {
+          id: 'shiraz',
+          name: 'Shiraz'
+        },
+        {
+          id: 'tehran',
+          name: 'Tehran'
+        },
+        {
+          id: 'yazd',
+          name: 'Yazd'
+        },
+        {
+          id: 'ahvaz',
+          name: 'Ahvaz'
+        },
+        {
+          id: 'sari',
+          name: 'Sari'
+        }
+      ]
+    },
+    {
+      fieldId: 'languages',
+      fieldType: 'Checkbox',
+      label: 'Languages:',
+      model: 'languages',
+      containerClasses: 'row mb-3',
+      labelClasses: 'col-md-2',
+      wrapperClasses: 'col-md-10',
+      optionsLabelClssses: 'form-check-label',
+      parentClasses: 'form-check form-check-inline',
+      fieldClasses: 'form-check-input',
+      isReadOnly: false,
+      values: [
+        {
+          id: 'english',
+          name: 'English'
+        },
+        {
+          id: 'russian',
+          name: 'Russian'
+        },
+        {
+          id: 'germany',
+          name: 'Germany'
+        },
+        {
+          id: 'turkish',
+          name: 'Turkish'
+        }
+      ]
     }
   ]
-};
-const model = {
-  txt1: '',
-  txt2: ''
+});
+const model = ref<any>({
+  firstName: '',
+  lastName: '',
+  seniorityLevel: { id: 'senior', name: 'Senior', rank: 4 },
+  city: 'tehran',
+  languages: { english: { id: 'english', name: 'English', _checked: true } }
+});
+const onModelUpdated = (newVal: any, modelName: any) => {
+  model.value[modelName] = newVal;
 };
 </script>
 
@@ -28,7 +145,8 @@ const model = {
     <h1>App Test:</h1>
     <main>
       <!-- components for test goes here -->
-      <DynamicBuilder :schema="schema" :model="model"></DynamicBuilder>
+      <DynamicBuilder :schema="schema" :model="model" @model-updated="onModelUpdated"></DynamicBuilder>
+      <div>{{ model }}</div>
     </main>
   </div>
 </template>

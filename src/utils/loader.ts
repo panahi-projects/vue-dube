@@ -1,5 +1,5 @@
 let fieldComponents: any = {};
-const componentsList = ['fieldTextbox'];
+const componentsList = ['fieldTextbox', 'fieldSelect', 'fieldCheckbox'];
 
 componentsList.forEach(async (componentName) => {
   const component = await import(`../components/fields/${componentName}.vue`);

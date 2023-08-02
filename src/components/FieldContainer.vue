@@ -1,14 +1,13 @@
 <script lang="ts">
-import { defineComponent, type PropType, shallowRef, onBeforeMount } from 'vue';
+import { defineComponent, type PropType, shallowRef, onBeforeMount, ref, getCurrentInstance } from 'vue';
 import { TDynamic, TField } from '@/interfaces';
 import fieldComponents from '@/utils/loader';
+import { get as objGet, isNil, isFunction } from 'lodash';
+import { slugifyFormID } from '@/utils/schema';
 
 export default defineComponent({
   name: 'FieldContainer',
   props: {
-    dubeContext: {
-      type: Object
-    },
     fieldSchema: {
       type: Object as PropType<TField>,
       required: true
@@ -16,22 +15,39 @@ export default defineComponent({
     model: {
       type: Object,
       default: {}
-    },
-    options: {
-      type: Object as PropType<TDynamic>,
-      required: false
     }
   }, //end props
-
+  emits: ['model-updated'],
+  data() {
+    return {
+      options: {} //this will be a props that comes from user side in future
+    };
+  },
   setup(props) {
+    const context = getCurrentInstance();
     let dynamicComponent = shallowRef<any>(null);
+    // let schema = ref<TField>(props.fieldSchema);
+    // const fieldPropConverter = (schema: TField) => {
+    //   let newSchema = ref<TField>(schema);
+    //   Object.entries(schema).forEach(([key, value]) => {
+    //     newSchema[key] = fieldFunctionHandler(schema, key);
+    //   });
+    // };
 
     const getFieldType = (field: TField): string => {
-      return 'field' + field.type;
+      return 'field' + field.fieldType;
     }; //end getFieldType
     const getComponent = (compName: string) => {
       return fieldComponents[compName];
     }; //end getComponent
+
+    const fieldFunctionHandler = (field: TField, objectKey: string) => {
+      if (isFunction(field?.[objectKey])) return field?.[objectKey].call(context, props.model, field, context);
+
+      if (isNil(field?.[objectKey])) return true;
+
+      return field?.[objectKey];
+    };
     onBeforeMount(() => {
       // Set up the interval to check for updates
       const intervalId = setInterval(() => {
@@ -48,21 +64,43 @@ export default defineComponent({
       };
     }); //end onBeforeMount
     return {
-      dynamicComponent
+      dynamicComponent,
+      fieldFunctionHandler
     };
-  } //end setup
+  }, //end setup
+  methods: {
+    onModelUpdated(newValue: any, model: string) {
+      this.$emit('model-updated', newValue, model);
+    },
+    getFieldID(schema: TField) {
+      return schema.fieldId;
+    }
+  }
 }); //end defineComponent
 </script>
 <template>
-  <div v-if="dynamicComponent" class="dube-field-container">
+  <div
+    v-if="dynamicComponent"
+    class="dube-field-container"
+    :class="fieldSchema.containerClasses"
+    :style="fieldSchema.containerStyles"
+  >
+    <label
+      v-if="fieldSchema.label"
+      v-html="fieldFunctionHandler(fieldSchema, 'label')"
+      :for="getFieldID(fieldSchema)"
+      :class="fieldSchema.labelClasses"
+      :style="fieldSchema.labelStyles"
+    ></label>
     <component
       ref="child"
-      :id="fieldSchema.fieldId"
+      :id="`field-${getFieldID(fieldSchema)}`"
+      :class="fieldSchema.wrapperClasses"
+      :style="fieldSchema.wrapperStyles"
       :is="dynamicComponent"
-      :dubeContext="dubeContext"
       :model="model"
       :schema="fieldSchema"
-      :formOptions="options"
+      @model-updated="onModelUpdated"
     ></component>
   </div>
 </template>
