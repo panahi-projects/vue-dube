@@ -6,24 +6,25 @@ const schema = ref<any>({
   fieldId: 'schema1',
   fields: [
     {
-      fieldId: '1',
+      fieldId: 'firstName',
       fieldType: 'Textbox',
-      label: 'Text 1',
-      model: 'txt1',
+      label: 'First Name',
+      model: 'firstName',
       inputType: 'text'
     },
     {
-      fieldId: '2',
+      fieldId: 'lastName',
       fieldType: 'Textbox',
-      label: 'Text 2',
-      model: 'txt2',
-      inputType: 'text'
+      label: (model: string, field: any) => field.reservedLabelName,
+      model: 'lastName',
+      inputType: 'text',
+      reservedLabelName: 'Last Name'
     }
   ]
 });
 const model = ref<any>({
-  txt1: 'test 1',
-  txt2: 'test 2'
+  firstName: '',
+  lastName: ''
 });
 const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;

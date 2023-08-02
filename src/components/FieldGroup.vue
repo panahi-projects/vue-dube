@@ -45,41 +45,6 @@ export default defineComponent({
     }
   }
 });
-
-// const props = defineProps({
-//   schema: {
-//     type: Object as PropType<ISchema>,
-//     require: true
-//   },
-//   model: {
-//     type: Object as PropType<IModel>,
-//     require: true
-//   },
-//   multiple: Boolean
-// });
-
-// const fields = computed(() => {
-//   const vm = props;
-//   const res: Array<TField> = [];
-//   if (vm.schema && vm.schema.fields) {
-//     forEach(vm.schema.fields, (field: TField) => {
-//       if (!vm.multiple || field.multi === true) res.push(field);
-//     });
-//   }
-
-//   return res;
-// });
-
-// //METHODS:
-// const fieldVisible = (field: TField) => {
-//   if (isFunction(field.visible)) return field.visible.call(this, props.model, field, props.schema, this);
-//   if (isNil(field.visible)) return true;
-
-//   return field.visible;
-// };
-// const onModelUpdated = (newValue: any, model: string) => {
-//   console.log(newValue, model);
-// };
 </script>
 <template>
   <div class="dube-field-group">
