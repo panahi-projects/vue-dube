@@ -8,6 +8,17 @@ const schema = ref<any>({
   groupFieldClasses: '',
   fields: [
     {
+      fieldId: 'sampleText',
+      fieldType: 'Textbox',
+      label: 'Sample text (out of form):',
+      model: 'sampleText',
+      inputType: 'text',
+      containerClasses: 'row mb-3',
+      wrapperClasses: 'col-sm-10',
+      labelClasses: 'col-form-label col-sm-2',
+      fieldClasses: 'form-control'
+    },
+    {
       fieldId: 'my-form',
       fieldType: 'Form',
       model: 'myForm',
@@ -15,11 +26,11 @@ const schema = ref<any>({
         {
           fieldId: 'firstName',
           fieldType: 'Textbox',
-          label: 'First Name',
+          label: 'First Name:',
           model: 'firstName',
           inputType: 'text',
           containerClasses: 'row mb-3',
-          parentClasses: 'col-sm-10',
+          wrapperClasses: 'col-sm-10',
           labelClasses: 'col-form-label col-sm-2',
           fieldClasses: 'form-control'
         },
@@ -29,9 +40,9 @@ const schema = ref<any>({
           label: (model: string, field: any) => field.reservedLabelName,
           model: 'lastName',
           inputType: 'text',
-          reservedLabelName: 'Last Name',
+          reservedLabelName: 'Last Name:',
           containerClasses: 'row mb-3',
-          parentClasses: 'col-sm-10',
+          wrapperClasses: 'col-sm-10',
           labelClasses: 'col-form-label col-sm-2',
           fieldClasses: 'form-control'
         },
@@ -39,7 +50,13 @@ const schema = ref<any>({
           fieldId: 'gender',
           model: 'gender',
           fieldType: 'Radio',
-          label: 'Gender',
+          label: 'Gender:',
+          containerClasses: 'row mb-3',
+          labelClasses: 'col-md-2',
+          wrapperClasses: 'col-md-10',
+          optionsLabelClssses: 'form-check-label',
+          parentClasses: 'form-check form-check-inline',
+          fieldClasses: 'form-check-input',
           values: [
             {
               id: 'male',
@@ -54,10 +71,10 @@ const schema = ref<any>({
         {
           fieldId: 'seniorityLevel',
           fieldType: 'Select',
-          label: 'Seniority Level',
+          label: 'Seniority Level:',
           model: 'seniorityLevel',
           containerClasses: 'row mb-3',
-          parentClasses: 'col-sm-10',
+          wrapperClasses: 'col-sm-10',
           labelClasses: 'col-form-label col-sm-2',
           fieldClasses: 'form-select',
           values: [
@@ -86,11 +103,11 @@ const schema = ref<any>({
         {
           fieldId: 'city',
           fieldType: 'Select',
-          label: 'City',
+          label: 'City:',
           model: 'city',
           valueType: 'string',
           containerClasses: 'row mb-3',
-          parentClasses: 'col-sm-10',
+          wrapperClasses: 'col-sm-10',
           labelClasses: 'col-form-label col-sm-2',
           fieldClasses: 'form-select',
           values: [
@@ -149,7 +166,7 @@ const schema = ref<any>({
         },
         {
           fieldId: 'bio',
-          label: 'Bio',
+          label: 'Bio:',
           model: 'bio',
           fieldType: 'Textarea',
           containerClasses: 'row mb-3',
