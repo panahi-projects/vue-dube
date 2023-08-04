@@ -14,7 +14,6 @@
         :required="schema.required"
         :rows="schema.rows || 2"
         :name="schema.inputName"
-        v-attributes="'input'"
       ></textarea>
     </template>
     <template v-else-if="schema.isReadOnly === true">

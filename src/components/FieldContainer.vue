@@ -1,9 +1,8 @@
 <script lang="ts">
 import { defineComponent, type PropType, shallowRef, onBeforeMount, ref, getCurrentInstance } from 'vue';
-import { TDynamic, TField } from '@/interfaces';
+import { TField } from '@/interfaces';
 import fieldComponents from '@/utils/loader';
 import { get as objGet, isNil, isFunction } from 'lodash';
-import { slugifyFormID } from '@/utils/schema';
 
 export default defineComponent({
   name: 'FieldContainer',
@@ -26,14 +25,6 @@ export default defineComponent({
   setup(props) {
     const context = getCurrentInstance();
     let dynamicComponent = shallowRef<any>(null);
-    // let schema = ref<TField>(props.fieldSchema);
-    // const fieldPropConverter = (schema: TField) => {
-    //   let newSchema = ref<TField>(schema);
-    //   Object.entries(schema).forEach(([key, value]) => {
-    //     newSchema[key] = fieldFunctionHandler(schema, key);
-    //   });
-    // };
-
     const getFieldType = (field: TField): string => {
       return 'field' + field.fieldType;
     }; //end getFieldType
@@ -70,6 +61,7 @@ export default defineComponent({
   }, //end setup
   methods: {
     onModelUpdated(newValue: any, model: string) {
+      debugger;
       this.$emit('model-updated', newValue, model);
     },
     getFieldID(schema: TField) {

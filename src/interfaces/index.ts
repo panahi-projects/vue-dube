@@ -5,6 +5,7 @@ export type TField = {
   fieldId: string;
   fieldType: string;
   model: string;
+  fields?: TField[];
   [key: string]: any;
 };
 export interface ISchema {
@@ -12,6 +13,7 @@ export interface ISchema {
   backRoute?: string;
   groupFieldClasses?: string;
   fields: TField[];
+  model: string;
 }
 export interface IModel extends TDynamic {}
 export interface IProps {
