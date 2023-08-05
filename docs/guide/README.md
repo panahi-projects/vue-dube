@@ -1,39 +1,20 @@
 # Introduction
+Vue-dube is a powerful and flexible Vue 3 plugin library that enables developers to quickly and easily create dynamic, responsive, and enhanced user interfaces (UIs) for their web applications. The library is designed to streamline the process of building complex UIs, allowing developers to focus on writing clean, maintainable code rather than tediously crafting individual UI components.
 
-VuePress is a markdown-centered static site generator. You can write your content (documentations, blogs, etc.) in [Markdown](https://en.wikipedia.org/wiki/Markdown), then VuePress will help you to generate a static site to host them.
+## Key Features
+- **Schema-driven**: Vue-dube is built around a schema-driven approach, which means that developers can define their UI components using simple JSON objects. This makes it easy to create and manage complex UIs without having to write extensive JavaScript code.
 
-The purpose of creating VuePress was to support the documentation of Vue.js and its sub-projects, but now it has been helping a large amount of users to build their documentation, blogs, and other static sites.
+- **Reactive**: Vue-dube leverages Vue 3's reactivity, ensuring that changes to the underlying data are automatically reflected in the UI. Developers can easily bind data from RESTful APIs or other data sources to their UI components, making it easy to build dynamic and interactive applications.
 
-## How It Works
+- **Customizable**: Vue-dube is highly customizable, allowing developers to extend and modify the library to fit their specific needs. Whether it's adding new UI components, modifying existing ones, or changing the look and feel of the library, developers have full control over the final product.
 
-A VuePress site is in fact a single-page application (SPA) powered by [Vue](https://vuejs.org/) and [Vue Router](https://router.vuejs.org).
+- **Easy integration**: Vue-dube is designed to work seamlessly with existing Vue 3 projects, requiring minimal setup and configuration. Developers can quickly integrate the library into their project and start building dynamic UIs right away.
 
-Routes are generated according to the relative path of your markdown files. Each Markdown file is compiled into HTML with [markdown-it](https://github.com/markdown-it/markdown-it) and then processed as the template of a Vue component. This allows you to directly use Vue inside your Markdown files and is great when you need to embed dynamic content.
+## Background
+Vue-dube is currently under active development, and we're excited to share our progress with the developer community. While the library is still evolving, we believe that it has the potential to revolutionize the way developers build UIs for their web applications. By providing a schema-driven, reactive, and customizable framework, we aim to simplify the UI development process and empower developers to create amazing user experiences.
 
-During development, we start a normal dev-server, and serve the VuePress site as a normal SPA. If you’ve used Vue before, you will notice the familiar development experience when you are writing and developing with VuePress.
+## Getting Started
+To get started with vue-dube, developers can visit our documentation portal for detailed instructions on how to install and set up the library. Our documentation includes step-by-step tutorials, code examples, and API references to help developers understand how to use the library effectively. Additionally, we encourage developers to join our community forum to ask questions, provide feedback, and collaborate with others who are using the library.
 
-During build, we create a server-rendered version of the VuePress site and render the corresponding HTML by virtually visiting each route. This approach is inspired by [Nuxt](https://nuxtjs.org/)'s `nuxt generate` command and other projects like [Gatsby](https://www.gatsbyjs.org/).
-
-## Why Not ...?
-
-### Nuxt
-
-Nuxt is an outstanding Vue SSR framework, and it is capable of doing what VuePress does. But Nuxt is designed for building applications, while VuePress is more lightweight and focused on content-centric static sites.
-
-### VitePress
-
-VitePress is the little brother of VuePress. It's also created and maintained by our Vue.js team. It's even more lightweight and faster than VuePress. However, as a tradeoff, it's more opinionated and less configurable. For example, it does not support plugins. But VitePress is powerful enough to make your content online if you don't need advanced customizations.
-
-It might not be an appropriate comparison, but you can take VuePress and VitePress as Laravel and Lumen.
-
-### Docsify / Docute
-
-Both are great projects and also Vue-powered. Except they are both fully runtime-driven and therefore not SEO-friendly. If you don’t care for SEO and don’t want to mess with installing dependencies, these are still great choices.
-
-### Hexo
-
-Hexo has been serving the Vue 2.x docs well. The biggest problem is that its theming system is static and string-based - we want to take advantage of Vue for both the layout and the interactivity. Also, Hexo’s Markdown rendering isn’t the most flexible to configure.
-
-### GitBook
-
-We’ve been using GitBook for most of our sub project docs. The primary problem with GitBook is that its development reload performance is intolerable with a large amount of files. The default theme also has a pretty limiting navigation structure, and the theming system is, again, not Vue based. The team behind GitBook is also more focused on turning it into a commercial product rather than an open-source tool.
+## Conclusion
+In conclusion, vue-dube is an exciting new Vue 3 plugin library that offers a fresh approach to building dynamic, responsive, and enhanced UIs for web applications. With its schema-driven architecture, reactive functionality, and customizable design, vue-dube is poised to become a game-changer in the world of front-end development. We invite developers to explore our library, provide feedback, and join us in shaping the future of UI development.

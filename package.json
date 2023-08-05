@@ -43,6 +43,7 @@
     "@vue/tsconfig": "^0.4.0",
     "@vuepress/plugin-back-to-top": "^2.0.0-beta.66",
     "@vuepress/theme-default": "^2.0.0-beta.66",
+    "@vuepress/utils": "^2.0.0-beta.66",
     "eslint": "^8.45.0",
     "eslint-plugin-vue": "^9.15.1",
     "lodash": "^4.17.21",

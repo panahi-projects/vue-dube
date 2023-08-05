@@ -1,6 +1,11 @@
 import type { NavbarConfig } from '@vuepress/theme-default';
+import {version} from '../meta'
 
 export const navbarEn: NavbarConfig = [
+  {
+    text: 'Home',
+    link: '/'
+  },
   {
     text: 'Guide',
     link: '/guide/'
@@ -108,20 +113,20 @@ export const navbarEn: NavbarConfig = [
     ]
   },
   {
-    text: `{{version ID goes here}}`,
+    text: `v${version}`,
     children: [
       {
         text: 'Changelog',
-        link: 'https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md'
+        link: 'https://github.com/panahi-projects/vue-dube/blob/main/README.md'
       },
       {
         text: 'v1.x',
-        link: 'https://v1.vuepress.vuejs.org'
-      },
-      {
-        text: 'v0.x',
-        link: 'https://v0.vuepress.vuejs.org'
+        link: 'https://github.com/panahi-projects/vue-dube/blob/main/README.md'
       }
     ]
-  }
+  },
+  {
+    text: 'Github',
+    link: 'https://github.com/panahi-projects/vue-dube'
+  },
 ];
