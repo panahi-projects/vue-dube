@@ -8,132 +8,189 @@ const schema = ref<any>({
   groupFieldClasses: '',
   fields: [
     {
-      fieldId: 'firstName',
+      fieldId: 'sampleText',
       fieldType: 'Textbox',
-      label: 'First Name',
-      model: 'firstName',
+      label: 'Sample text (out of form):',
+      model: 'sampleText',
       inputType: 'text',
       containerClasses: 'row mb-3',
-      parentClasses: 'col-sm-10',
+      wrapperClasses: 'col-sm-10',
       labelClasses: 'col-form-label col-sm-2',
       fieldClasses: 'form-control'
     },
     {
-      fieldId: 'lastName',
-      fieldType: 'Textbox',
-      label: (model: string, field: any) => field.reservedLabelName,
-      model: 'lastName',
-      inputType: 'text',
-      reservedLabelName: 'Last Name',
-      containerClasses: 'row mb-3',
-      parentClasses: 'col-sm-10',
-      labelClasses: 'col-form-label col-sm-2',
-      fieldClasses: 'form-control'
-    },
-    {
-      fieldId: 'seniorityLevel',
-      fieldType: 'Select',
-      label: 'Seniority Level',
-      model: 'seniorityLevel',
-      containerClasses: 'row mb-3',
-      parentClasses: 'col-sm-10',
-      labelClasses: 'col-form-label col-sm-2',
-      fieldClasses: 'form-select',
-      values: [
+      fieldId: 'my-form',
+      fieldType: 'Form',
+      model: 'myForm',
+      fields: [
         {
-          id: 'junior',
-          name: 'Junior',
-          rank: 4
+          fieldId: 'firstName',
+          fieldType: 'Textbox',
+          label: 'First Name:',
+          model: 'firstName',
+          inputType: 'text',
+          containerClasses: 'row mb-3',
+          wrapperClasses: 'col-sm-10',
+          labelClasses: 'col-form-label col-sm-2',
+          fieldClasses: 'form-control'
         },
         {
-          id: 'medior',
-          name: 'Medior',
-          rank: 3
+          fieldId: 'lastName',
+          fieldType: 'Textbox',
+          label: (model: string, field: any) => field.reservedLabelName,
+          model: 'lastName',
+          inputType: 'text',
+          reservedLabelName: 'Last Name:',
+          containerClasses: 'row mb-3',
+          wrapperClasses: 'col-sm-10',
+          labelClasses: 'col-form-label col-sm-2',
+          fieldClasses: 'form-control'
         },
         {
-          id: 'senior',
-          name: 'Senior',
-          rank: 2
+          fieldId: 'gender',
+          model: 'gender',
+          fieldType: 'Radio',
+          label: 'Gender:',
+          containerClasses: 'row mb-3',
+          labelClasses: 'col-md-2',
+          wrapperClasses: 'col-md-10',
+          optionsLabelClssses: 'form-check-label',
+          parentClasses: 'form-check form-check-inline',
+          fieldClasses: 'form-check-input',
+          values: [
+            {
+              id: 'male',
+              name: 'Male'
+            },
+            {
+              id: 'female',
+              name: 'Female'
+            }
+          ]
         },
         {
-          id: 'lead',
-          name: 'Lead',
-          rank: 1
-        }
-      ]
-    },
-    {
-      fieldId: 'city',
-      fieldType: 'Select',
-      label: 'City',
-      model: 'city',
-      valueType: 'string',
-      containerClasses: 'row mb-3',
-      parentClasses: 'col-sm-10',
-      labelClasses: 'col-form-label col-sm-2',
-      fieldClasses: 'form-select',
-      values: [
-        {
-          id: 'shiraz',
-          name: 'Shiraz'
+          fieldId: 'seniorityLevel',
+          fieldType: 'Select',
+          label: 'Seniority Level:',
+          model: 'seniorityLevel',
+          containerClasses: 'row mb-3',
+          wrapperClasses: 'col-sm-10',
+          labelClasses: 'col-form-label col-sm-2',
+          fieldClasses: 'form-select',
+          values: [
+            {
+              id: 'junior',
+              name: 'Junior',
+              rank: 4
+            },
+            {
+              id: 'medior',
+              name: 'Medior',
+              rank: 3
+            },
+            {
+              id: 'senior',
+              name: 'Senior',
+              rank: 2
+            },
+            {
+              id: 'lead',
+              name: 'Lead',
+              rank: 1
+            }
+          ]
         },
         {
-          id: 'tehran',
-          name: 'Tehran'
+          fieldId: 'city',
+          fieldType: 'Select',
+          label: 'City:',
+          model: 'city',
+          valueType: 'string',
+          containerClasses: 'row mb-3',
+          wrapperClasses: 'col-sm-10',
+          labelClasses: 'col-form-label col-sm-2',
+          fieldClasses: 'form-select',
+          values: [
+            {
+              id: 'shiraz',
+              name: 'Shiraz'
+            },
+            {
+              id: 'tehran',
+              name: 'Tehran'
+            },
+            {
+              id: 'yazd',
+              name: 'Yazd'
+            },
+            {
+              id: 'ahvaz',
+              name: 'Ahvaz'
+            },
+            {
+              id: 'sari',
+              name: 'Sari'
+            }
+          ]
         },
         {
-          id: 'yazd',
-          name: 'Yazd'
+          fieldId: 'languages',
+          fieldType: 'Checkbox',
+          label: 'Languages:',
+          model: 'languages',
+          containerClasses: 'row mb-3',
+          labelClasses: 'col-md-2',
+          wrapperClasses: 'col-md-10',
+          optionsLabelClssses: 'form-check-label',
+          parentClasses: 'form-check form-check-inline',
+          fieldClasses: 'form-check-input',
+          isReadOnly: false,
+          values: [
+            {
+              id: 'english',
+              name: 'English'
+            },
+            {
+              id: 'russian',
+              name: 'Russian'
+            },
+            {
+              id: 'germany',
+              name: 'Germany'
+            },
+            {
+              id: 'turkish',
+              name: 'Turkish'
+            }
+          ]
         },
         {
-          id: 'ahvaz',
-          name: 'Ahvaz'
-        },
-        {
-          id: 'sari',
-          name: 'Sari'
-        }
-      ]
-    },
-    {
-      fieldId: 'languages',
-      fieldType: 'Checkbox',
-      label: 'Languages:',
-      model: 'languages',
-      containerClasses: 'row mb-3',
-      labelClasses: 'col-md-2',
-      wrapperClasses: 'col-md-10',
-      optionsLabelClssses: 'form-check-label',
-      parentClasses: 'form-check form-check-inline',
-      fieldClasses: 'form-check-input',
-      isReadOnly: false,
-      values: [
-        {
-          id: 'english',
-          name: 'English'
-        },
-        {
-          id: 'russian',
-          name: 'Russian'
-        },
-        {
-          id: 'germany',
-          name: 'Germany'
-        },
-        {
-          id: 'turkish',
-          name: 'Turkish'
+          fieldId: 'bio',
+          label: 'Bio:',
+          model: 'bio',
+          fieldType: 'Textarea',
+          containerClasses: 'row mb-3',
+          wrapperClasses: 'col-sm-10',
+          labelClasses: 'col-form-label col-sm-2',
+          fieldClasses: 'form-control',
+          rows: 3,
+          placeholder: 'Type your bio here...',
+          max: 256
         }
       ]
     }
   ]
 });
 const model = ref<any>({
-  firstName: '',
-  lastName: '',
-  seniorityLevel: { id: 'senior', name: 'Senior', rank: 4 },
-  city: 'tehran',
-  languages: { english: { id: 'english', name: 'English', _checked: true } }
+  // firstName: '',
+  // lastName: '',
+  // seniorityLevel: { id: 'senior', name: 'Senior', rank: 4 },
+  // city: 'tehran',
+  // languages: { english: { id: 'english', name: 'English', _checked: true } },
+  // bio: '',
+  myForm: {
+    // test: ''
+  }
 });
 const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;

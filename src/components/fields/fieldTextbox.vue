@@ -12,7 +12,7 @@ export default defineComponent({
     onInput(event: Event) {
       const target = event.target as HTMLInputElement;
       let value: string | number = target.value;
-      switch (this.schema.inputType.toLowerCase()) {
+      switch (this.schema?.inputType?.toLowerCase()) {
         case 'number':
         case 'range':
           if (isNumber(parseFloat(target.value))) {
@@ -29,7 +29,7 @@ export default defineComponent({
   <div :class="schema.parentClasses" :style="schema.parentStyles">
     <input
       :id="schema.fieldId"
-      :type="schema.fieldType || 'text'"
+      :type="schema.inputType || 'text'"
       :name="schema.name || schema.fieldId"
       :class="schema.fieldClasses"
       :style="schema.fieldStyles"
