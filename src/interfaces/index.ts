@@ -15,6 +15,10 @@ export interface ISchema {
   fields: TField[];
   model: string;
 }
+export interface IDube {
+  schema: ISchema;
+  model: IModel;
+}
 export interface IModel extends TDynamic {}
 export interface IProps {
   model: IModel;

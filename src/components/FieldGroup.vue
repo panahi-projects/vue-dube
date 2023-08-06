@@ -2,10 +2,13 @@
 import { PropType, defineComponent } from 'vue';
 import FieldContainer from './FieldContainer.vue';
 import { forEach, isFunction, isNil } from 'lodash';
-import { IModel, ISchema, TField } from '@/interfaces';
+import { IDube, IModel, ISchema, TField } from '@/interfaces';
 
 export default defineComponent({
   props: {
+    dubeSchema: {
+      type: Object as PropType<IDube>
+    },
     schema: {
       type: Object as PropType<ISchema>,
       require: true
@@ -51,6 +54,7 @@ export default defineComponent({
       <FieldContainer
         :key="`${idx}`"
         v-if="fieldVisible(field)"
+        :dubeSchema="dubeSchema"
         :fieldSchema="field"
         :model="model"
         @model-updated="onModelUpdated"

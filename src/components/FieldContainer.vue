@@ -1,12 +1,15 @@
 <script lang="ts">
 import { defineComponent, type PropType, shallowRef, onBeforeMount, ref, getCurrentInstance } from 'vue';
-import { TField } from '@/interfaces';
+import { TField, IDube } from '@/interfaces';
 import fieldComponents from '@/utils/loader';
 import { get as objGet, isNil, isFunction } from 'lodash';
 
 export default defineComponent({
   name: 'FieldContainer',
   props: {
+    dubeSchema: {
+      type: Object as PropType<IDube>
+    },
     fieldSchema: {
       type: Object as PropType<TField>,
       required: true
@@ -61,7 +64,6 @@ export default defineComponent({
   }, //end setup
   methods: {
     onModelUpdated(newValue: any, model: string) {
-      debugger;
       this.$emit('model-updated', newValue, model);
     },
     getFieldID(schema: TField) {
@@ -90,6 +92,7 @@ export default defineComponent({
       :class="fieldSchema.wrapperClasses"
       :style="fieldSchema.wrapperStyles"
       :is="dynamicComponent"
+      :dubeSchema="dubeSchema"
       :model="model"
       :schema="fieldSchema"
       @model-updated="onModelUpdated"

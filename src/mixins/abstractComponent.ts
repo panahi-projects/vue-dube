@@ -1,9 +1,12 @@
-import { TField } from '@/interfaces';
+import { IDube, TField } from '@/interfaces';
 import { get as objGet, uniq as arrayUniq, isArray, isString, isNil } from 'lodash';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
+    dubeSchema: {
+      type: Object as PropType<IDube>
+    },
     schema: {
       type: Object as PropType<TField>,
       required: true

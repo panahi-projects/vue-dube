@@ -19,7 +19,7 @@ const schema = ref<any>({
       fieldClasses: 'form-control'
     },
     {
-      fieldId: 'my-form',
+      fieldId: 'myForm',
       fieldType: 'Form',
       model: 'myForm',
       fields: [
@@ -176,21 +176,33 @@ const schema = ref<any>({
           rows: 3,
           placeholder: 'Type your bio here...',
           max: 256
+        },
+        {
+          fieldId: 'btn1',
+          model: 'btn1',
+          fieldType: 'Button',
+          onClick: (e: Event, _schema: any, _field: any, _model: any, _value: any) => {
+            console.log('Form submit:');
+            if (_schema?.schema?.fields?.length) {
+              let found = (_schema.schema.fields as Array<any>).find((x) => {
+                if (x.fieldId === 'firstName') {
+                  return x;
+                }
+              });
+              console.log('found item:', found.fieldId);
+            }
+            console.log('_field:', _field);
+            console.log('model:', _model?.gender?.id);
+            console.log('value:', _value);
+          },
+          value: 'Submit'
         }
       ]
     }
   ]
 });
 const model = ref<any>({
-  // firstName: '',
-  // lastName: '',
-  // seniorityLevel: { id: 'senior', name: 'Senior', rank: 4 },
-  // city: 'tehran',
-  // languages: { english: { id: 'english', name: 'English', _checked: true } },
-  // bio: '',
-  myForm: {
-    // test: ''
-  }
+  myForm: {}
 });
 const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;

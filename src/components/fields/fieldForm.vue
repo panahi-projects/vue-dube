@@ -26,13 +26,22 @@ export default defineComponent({
 });
 </script>
 <template>
-  <form :name="schema.formName" :method="schema.method" :action="schema.action" :target="schema.target">
-    <template v-if="schema.useSlot === true"></template>
-    <template v-else-if="schema.fields">
-      <Dube :schema="formSchema" :model="model[formSchema.model]" @model-updated="onModelUpdated"></Dube>
-    </template>
-    <template v-else>
-      <div>Form fields not loaded</div>
-    </template>
-  </form>
+  <div :class="schema.parentClasses" :style="schema.parentStyles">
+    <form
+      :name="schema.formName"
+      :method="schema.method"
+      :action="schema.action"
+      :target="schema.target"
+      :class="schema.fieldClasses"
+      :style="schema.fieldStyles"
+    >
+      <template v-if="schema.useSlot === true"></template>
+      <template v-else-if="schema.fields">
+        <Dube :schema="formSchema" :model="model[formSchema.model]" @model-updated="onModelUpdated"></Dube>
+      </template>
+      <template v-else>
+        <div>Form fields not loaded</div>
+      </template>
+    </form>
+  </div>
 </template>

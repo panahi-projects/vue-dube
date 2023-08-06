@@ -1,3 +1,6 @@
+import { TField } from '@/interfaces';
+import { isFunction, isNil } from 'lodash';
+
 export const generateId = (length: number): string => {
   let result = '';
   const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -15,4 +18,12 @@ export const create_UUID = (): string => {
     return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
   });
   return uuid;
+};
+export const functionHandler = (field: TField, objectKey: string, context: any) => {
+  if (!context) return '';
+  if (isFunction(field?.[objectKey])) return field?.[objectKey].call(context, context.model, field, context);
+
+  if (isNil(field?.[objectKey])) return true;
+
+  return field?.[objectKey];
 };
