@@ -19,7 +19,12 @@ export interface IDube {
   schema: ISchema;
   model: IModel;
 }
+export interface IError {
+  fieldId: string;
+  isValid: boolean;
+}
 export interface IModel extends TDynamic {}
+export interface IOprtions extends TDynamic {}
 export interface IProps {
   model: IModel;
   schema: ISchema;

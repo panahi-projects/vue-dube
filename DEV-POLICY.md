@@ -19,7 +19,7 @@ In the opened editor, the first line is the subject (short description), leave a
 
 ---
 
-Issue:_{{ISSUE-ID}}_ _{{COMMIT-TYPE}}_: _{{CHANGES-TITLE}}_
+Issue:_{{ISSUE-ID}}_ _{{COMMIT-TYPE}}_:_{{CHANGES-TITLE}}_
 
 _{{EMPTY-LINE}}_
 
@@ -48,10 +48,10 @@ Initialize the project and set the required configs. also installed below npm pa
 
 ### Commit Types:
 
-- feat: The new feature you're adding to a particular application
-- fix: A bug fix
-- style: Feature and updates related to styling
-- refactor: Refactoring a specific section of the codebase
-- test: Everything related to testing
-- docs: Everything related to documentation
-- chore: Regular code maintenance.[ You can also use emojis to represent commit types]
+- Feat: The new feature you're adding to a particular application
+- Fix: A bug fix
+- Style: Feature and updates related to styling
+- Refactor: Refactoring a specific section of the codebase
+- Test: Everything related to testing
+- Docs: Everything related to documentation
+- Chore: Regular code maintenance.[ You can also use emojis to represent commit types]

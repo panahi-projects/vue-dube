@@ -1,8 +1,8 @@
 <script lang="ts">
 import { PropType, defineComponent, ref } from 'vue';
-// import { FieldGroup } from './';
-import { IDube, IModel, ISchema } from '@/interfaces';
+import { IDube, IModel, ISchema, TField, IOprtions } from '@/interfaces';
 import FieldGroup from './FieldGroup.vue';
+
 export default defineComponent({
   props: {
     schema: {
@@ -12,13 +12,20 @@ export default defineComponent({
     model: {
       type: Object as PropType<IModel>,
       require: true
+    },
+    options: {
+      type: Object as PropType<IOprtions>
     }
   },
-  emits: ['model-updated'],
+  emits: ['model-updated', 'validated'],
   components: { FieldGroup },
   methods: {
     onModelUpdated(newValue: any, model: string) {
       this.$emit('model-updated', newValue, model);
+    },
+    onFieldValidated(res: any, errors: any, field: TField) {
+      debugger;
+      this.$emit('validated', res, errors, field);
     }
   },
   setup(props) {
@@ -38,6 +45,13 @@ export default defineComponent({
 </script>
 <template>
   <div class="dube" :data-cy-id="schema?.fieldId" data-cy-class="dube">
-    <FieldGroup :dubeSchema="dubeSchema" :schema="schema" :model="model" @model-updated="onModelUpdated"></FieldGroup>
+    <FieldGroup
+      :dubeSchema="dubeSchema"
+      :schema="schema"
+      :model="model"
+      :options="options"
+      @model-updated="onModelUpdated"
+      @validated="onFieldValidated"
+    ></FieldGroup>
   </div>
 </template>

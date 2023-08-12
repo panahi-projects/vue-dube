@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { DynamicBuilder } from '.';
+import { TField } from './interfaces';
 
 //the classes that are use in the below shcema is based on Bootstrap 5
 const schema = ref<any>({
@@ -32,7 +33,15 @@ const schema = ref<any>({
           containerClasses: 'row mb-3',
           wrapperClasses: 'col-sm-10',
           labelClasses: 'col-form-label col-sm-2',
-          fieldClasses: 'form-control'
+          fieldClasses: 'form-control',
+          required: true,
+          validator: (value: string) => {
+            if (!value) {
+              console.log('Field is required');
+              return false;
+            }
+            return true;
+          }
         },
         {
           fieldId: 'lastName',
@@ -44,7 +53,15 @@ const schema = ref<any>({
           containerClasses: 'row mb-3',
           wrapperClasses: 'col-sm-10',
           labelClasses: 'col-form-label col-sm-2',
-          fieldClasses: 'form-control'
+          fieldClasses: 'form-control',
+          required: true,
+          validator: (value: string) => {
+            if (!value) {
+              console.log('Field is required');
+              return false;
+            }
+            return true;
+          }
         },
         {
           fieldId: 'gender',
@@ -181,21 +198,13 @@ const schema = ref<any>({
           fieldId: 'btn1',
           model: 'btn1',
           fieldType: 'Button',
-          onClick: (e: Event, _schema: any, _field: any, _model: any, _value: any) => {
-            console.log('Form submit:');
-            if (_schema?.schema?.fields?.length) {
-              let found = (_schema.schema.fields as Array<any>).find((x) => {
-                if (x.fieldId === 'firstName') {
-                  return x;
-                }
-              });
-              console.log('found item:', found.fieldId);
-            }
-            console.log('_field:', _field);
-            console.log('model:', _model?.gender?.id);
-            console.log('value:', _value);
+          onClick: (e: Event, schema: any, field: any, model: any, value: any) => {
+            console.log('schema', schema);
+            console.log('field:', field);
+            console.log('model:', model?.gender?.id);
+            console.log('value:', value);
           },
-          value: 'Submit'
+          value: 'Submit' //text inside the button
         }
       ]
     }
@@ -207,6 +216,10 @@ const model = ref<any>({
 const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;
 };
+const onFieldValidated = (res: any, errors: any, field: TField) => {
+  debugger;
+  console.log({ res });
+};
 </script>
 
 <template>
@@ -214,7 +227,12 @@ const onModelUpdated = (newVal: any, modelName: any) => {
     <h1>App Test:</h1>
     <main>
       <!-- components for test goes here -->
-      <DynamicBuilder :schema="schema" :model="model" @model-updated="onModelUpdated"></DynamicBuilder>
+      <DynamicBuilder
+        :schema="schema"
+        :model="model"
+        @model-updated="onModelUpdated"
+        @validated="onFieldValidated"
+      ></DynamicBuilder>
       <div>{{ model }}</div>
     </main>
   </div>

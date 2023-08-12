@@ -2,7 +2,11 @@
 import { PropType, defineComponent } from 'vue';
 import FieldContainer from './FieldContainer.vue';
 import { forEach, isFunction, isNil } from 'lodash';
-import { IDube, IModel, ISchema, TField } from '@/interfaces';
+import { IDube, IModel, IOprtions, ISchema, TField, IError } from '@/interfaces';
+
+interface Data {
+  errors: Array<IError>;
+}
 
 export default defineComponent({
   props: {
@@ -17,10 +21,18 @@ export default defineComponent({
       type: Object as PropType<IModel>,
       require: true
     },
+    options: {
+      type: Object as PropType<IOprtions>
+    },
     multiple: Boolean
   },
-  emits: ['model-updated'],
+  emits: ['model-updated', 'validated'],
   components: { FieldContainer },
+  data(): Data {
+    return {
+      errors: [] // Validation errors
+    };
+  },
   computed: {
     fields() {
       const vm = this;
@@ -34,6 +46,16 @@ export default defineComponent({
       return res;
     }
   },
+  watch: {
+    errors: {
+      handler(newVal: IError[]) {
+        const vm = this;
+        let isValid = newVal.find((err: IError) => err.isValid !== true) ? false : true;
+        vm.$emit('validated', isValid, newVal, vm);
+      },
+      deep: true
+    }
+  },
   methods: {
     fieldVisible(field: TField) {
       const vm = this;
@@ -44,6 +66,20 @@ export default defineComponent({
     },
     onModelUpdated(newValue: any, model: string) {
       this.$emit('model-updated', newValue, model);
+    },
+    // Child field executed validation
+    onFieldValidated(res: any, errors: any, field: TField) {
+      const vm = this;
+      // Remove old errors for this field
+      vm.errors = vm.errors.filter((e: any) => e.fieldId !== field.schema.fieldId);
+      if (!res && errors && errors.length > 0) {
+        // Add errors
+        forEach(errors, (err) => {
+          vm.errors.push({
+            ...err
+          });
+        });
+      }
     }
   }
 });
@@ -57,7 +93,9 @@ export default defineComponent({
         :dubeSchema="dubeSchema"
         :fieldSchema="field"
         :model="model"
+        :options="options"
         @model-updated="onModelUpdated"
+        @validated="onFieldValidated"
       ></FieldContainer>
     </template>
   </div>

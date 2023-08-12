@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, type PropType, shallowRef, onBeforeMount, ref, getCurrentInstance } from 'vue';
-import { TField, IDube } from '@/interfaces';
+import { TField, IDube, IOprtions } from '@/interfaces';
 import fieldComponents from '@/utils/loader';
 import { get as objGet, isNil, isFunction } from 'lodash';
 
@@ -17,14 +17,12 @@ export default defineComponent({
     model: {
       type: Object,
       default: {}
+    },
+    options: {
+      type: Object as PropType<IOprtions>
     }
   }, //end props
-  emits: ['model-updated'],
-  data() {
-    return {
-      options: {} //this will be a props that comes from user side in future
-    };
-  },
+  emits: ['model-updated', 'validated'],
   setup(props) {
     const context = getCurrentInstance();
     let dynamicComponent = shallowRef<any>(null);
@@ -68,6 +66,10 @@ export default defineComponent({
     },
     getFieldID(schema: TField) {
       return schema.fieldId;
+    },
+    // Child field executed validation
+    onFieldValidated(res: any, errors: any, field: TField) {
+      this.$emit('validated', res, errors, field);
     }
   }
 }); //end defineComponent
@@ -79,13 +81,15 @@ export default defineComponent({
     :class="fieldSchema.containerClasses"
     :style="fieldSchema.containerStyles"
   >
-    <label
-      v-if="fieldSchema.label"
-      v-html="fieldFunctionHandler(fieldSchema, 'label')"
-      :for="getFieldID(fieldSchema)"
-      :class="fieldSchema.labelClasses"
-      :style="fieldSchema.labelStyles"
-    ></label>
+    <template v-if="fieldSchema.label">
+      <label
+        v-html="fieldFunctionHandler(fieldSchema, 'label')"
+        :for="getFieldID(fieldSchema)"
+        :class="fieldSchema.labelClasses"
+        :style="fieldSchema.labelStyles"
+      ></label>
+      <span class="required" v-show="fieldSchema.required === true">*</span>
+    </template>
     <component
       ref="child"
       :id="`field-${getFieldID(fieldSchema)}`"
@@ -95,7 +99,14 @@ export default defineComponent({
       :dubeSchema="dubeSchema"
       :model="model"
       :schema="fieldSchema"
+      :options="options"
       @model-updated="onModelUpdated"
+      @validated="onFieldValidated"
     ></component>
   </div>
 </template>
+<style scoped>
+.required {
+  color: #ff0066;
+}
+</style>
