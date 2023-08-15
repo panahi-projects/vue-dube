@@ -1,20 +1,24 @@
 <script lang="ts">
+import { TDynamic } from '@/interfaces';
 import abstractComponent from '@/mixins/abstractComponent';
 import { defineComponent } from 'vue';
 
-export default defineComponent({
+interface IProps extends TDynamic {}
+export default defineComponent<IProps>({
   name: 'Button',
   mixins: [abstractComponent],
   methods: {
     onClick(event: Event) {
       event.preventDefault();
-      const field = { ...this.schema };
-      const model = { ...this.model };
-      const schema = {
-        schema: { ...this.dubeSchema?.schema },
-        model: { ...this.dubeSchema?.model }
-      };
-      this.schema.onClick(event, schema, field, model, this.value);
+      if (this.schema.onClick) {
+        const field = { ...this.schema };
+        const model = { ...this.model };
+        const schema = {
+          schema: { ...this.dubeSchema?.schema },
+          model: { ...this.dubeSchema?.model }
+        };
+        this.schema.onClick(event, schema, field, model, this.value);
+      }
     } //end onClick
   }
 });

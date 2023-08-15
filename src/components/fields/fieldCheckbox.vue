@@ -1,4 +1,5 @@
 <script lang="ts">
+import { TDynamic } from '@/interfaces';
 import abstractComponent from '@/mixins/abstractComponent';
 import { generateId } from '@/utils/global';
 import { defineComponent, ref } from 'vue';
@@ -10,11 +11,24 @@ interface checkboxValues {
   name: string | number;
 }
 
-export default defineComponent({
+interface IData {
+  checkValues: checkboxValues[];
+  tempId: string;
+  selectedValues: any;
+  currentData: {
+    id: string;
+    name: string;
+    _checked: boolean;
+  };
+}
+interface IProps extends TDynamic {}
+
+export default defineComponent<IProps>({
+  name: 'Checkbox',
   mixins: [abstractComponent],
-  data() {
+  data(): IData {
     return {
-      checkValues: ref<checkboxValues[]>([]),
+      checkValues: [],
       tempId: '',
       selectedValues: {},
       currentData: {

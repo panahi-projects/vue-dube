@@ -24,10 +24,14 @@
   </div>
 </template>
 <script lang="ts">
+import { TDynamic } from '@/interfaces';
 import abstractComponent from '@/mixins/abstractComponent';
 import { defineComponent } from 'vue';
 
-export default defineComponent({
+interface IProps extends TDynamic {}
+
+export default defineComponent<IProps>({
+  name: 'Textarea',
   mixins: [abstractComponent]
 });
 </script>

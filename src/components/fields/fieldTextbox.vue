@@ -1,8 +1,12 @@
 <script lang="ts">
+import { TDynamic } from '@/interfaces';
 import abstractComponent from '@/mixins/abstractComponent';
 import { isNumber } from 'lodash';
 import { defineComponent } from 'vue';
-export default defineComponent({
+
+interface IProps extends TDynamic {}
+
+export default defineComponent<IProps>({
   name: 'Textbox',
   mixins: [abstractComponent],
   setup() {

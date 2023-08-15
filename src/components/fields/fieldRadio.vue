@@ -1,4 +1,5 @@
 <script lang="ts">
+import { TDynamic } from '@/interfaces';
 import abstractComponent from '@/mixins/abstractComponent';
 import { generateId } from '@/utils/global';
 import { defineComponent, ref } from 'vue';
@@ -9,8 +10,10 @@ interface radioValuesType {
   value: string | number;
   name: string | number;
 }
+interface IProps extends TDynamic {}
 
-export default defineComponent({
+export default defineComponent<IProps>({
+  name: 'Radio',
   mixins: [abstractComponent],
   data() {
     return {

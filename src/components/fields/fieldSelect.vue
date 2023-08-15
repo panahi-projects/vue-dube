@@ -4,7 +4,9 @@ import abstractField from '@/mixins/abstractComponent';
 import { defineComponent } from 'vue';
 import { TDynamic } from '@/interfaces';
 
-export default defineComponent({
+interface IProps extends TDynamic {}
+
+export default defineComponent<IProps>({
   name: 'Select',
   mixins: [abstractField],
   data() {
