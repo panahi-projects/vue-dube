@@ -100,6 +100,7 @@ export default defineComponent({
       vm.clearValidationErrors();
       const validator = vm.schema.validator;
       if (validator) {
+        debugger;
         // vm.errors.push({ isValid: false, fieldId: vm.schema.fieldId });
         const result = validator(vm.value, vm.schema, vm.model);
         const isFieldValid: IError = {
@@ -109,7 +110,10 @@ export default defineComponent({
         vm.errors.push(isFieldValid);
         // console.log('vm.errors', vm.errors);
       }
-      const isValid = vm.errors.length === 0;
+      const isValid: boolean = vm.errors.find((err) => err.isValid === false) ? false : true;
+      console.log('ABSTRACT:', isValid);
+
+      debugger;
       vm.$emit('validated', isValid, vm.errors, vm);
 
       // const validateAsync = objGet(vm.options, 'validateAsync', false);

@@ -4,7 +4,7 @@ import FieldContainer from './FieldContainer.vue';
 import { forEach, isFunction, isNil } from 'lodash';
 import { IDube, IModel, IOprtions, ISchema, TField, IError } from '@/interfaces';
 
-interface Data {
+interface IData {
   errors: Array<IError>;
 }
 
@@ -28,7 +28,7 @@ export default defineComponent({
   },
   emits: ['model-updated', 'validated'],
   components: { FieldContainer },
-  data(): Data {
+  data(): IData {
     return {
       errors: [] // Validation errors
     };
@@ -50,7 +50,11 @@ export default defineComponent({
     errors: {
       handler(newVal: IError[]) {
         const vm = this;
-        let isValid = newVal.find((err: IError) => err.isValid !== true) ? false : true;
+        debugger;
+        const validStatus = newVal.findIndex((err: IError) => err.isValid === false);
+        console.log('validStatus>>>', validStatus);
+
+        const isValid = validStatus < 0 ? true : false;
         vm.$emit('validated', isValid, newVal, vm);
       },
       deep: true
@@ -80,7 +84,9 @@ export default defineComponent({
           });
         });
       }
-    }
+      debugger;
+      console.log('vm.errors', vm.errors);
+    } //end onFieldValidated
   }
 });
 </script>
