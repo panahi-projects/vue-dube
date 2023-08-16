@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DynamicBuilder } from '.';
-import { TField } from './interfaces';
 
-//the classes that are use in the below shcema is based on Bootstrap 5
+import { DynamicBuilder } from '.';
+import { TField } from '.';
+
+const isValid = ref<boolean | null>(false);
 const schema = ref<any>({
   fieldId: 'schema1',
   groupFieldClasses: '',
@@ -23,6 +24,12 @@ const schema = ref<any>({
       fieldId: 'myForm',
       fieldType: 'Form',
       model: 'myForm',
+      name: 'myForm',
+      onSubmit: (e: Event, schema: any, field: any, model: any, value: any) => {
+        console.log({ model });
+      },
+      validateBeforeSubmit: true,
+      fieldClasses: 'mb-3',
       fields: [
         {
           fieldId: 'firstName',
@@ -198,12 +205,7 @@ const schema = ref<any>({
           fieldId: 'btn1',
           model: 'btn1',
           fieldType: 'Button',
-          onClick: (e: Event, schema: any, field: any, model: any, value: any) => {
-            console.log('schema', schema);
-            console.log('field:', field);
-            console.log('model:', model?.gender?.id);
-            console.log('value:', value);
-          },
+          buttonType: 'submit',
           value: 'Submit' //text inside the button
         }
       ]
@@ -218,7 +220,9 @@ const onModelUpdated = (newVal: any, modelName: any) => {
 };
 const onFieldValidated = (res: any, errors: any, field: TField) => {
   debugger;
-  console.log({ res });
+  console.log('App:', res, errors);
+
+  isValid.value = res;
 };
 </script>
 
@@ -233,7 +237,8 @@ const onFieldValidated = (res: any, errors: any, field: TField) => {
         @model-updated="onModelUpdated"
         @validated="onFieldValidated"
       ></DynamicBuilder>
-      <div>{{ model }}</div>
+      <div>MODEL:{{ model }}</div>
+      <div>IS VALID:{{ isValid }}</div>
     </main>
   </div>
 </template>

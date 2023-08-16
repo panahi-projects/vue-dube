@@ -9,4 +9,5 @@ const installComponents = (app: App<Element>): void => {
 
 export * from '@/utils/loader';
 export { DynamicBuilder } from '@/components';
+export * from '@/interfaces';
 export default { installComponents };
