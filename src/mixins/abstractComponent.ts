@@ -12,6 +12,8 @@ import {
 } from 'lodash';
 import { PropType, defineComponent } from 'vue';
 import validators from '../utils/validators';
+// import { Database } from '@/stores';
+import { validationStore } from '@/stores';
 interface Data {
   errors: Array<IError>;
   debouncedValidateFunc: any;
@@ -65,17 +67,6 @@ export default defineComponent({
       const vm = this;
       vm.$emit('model-updated', newValue, vm.schema.model);
       vm.validate();
-      // if (vm.schema.onChanged && isFunction(vm.schema.onChanged)) {
-      //   vm.schema.onChanged.call(vm, vm.model, newValue, oldValue, vm.schema);
-      // }
-
-      // if (objGet(vm.options, 'validateAfterChanged', false) === true) {
-      //   if (objGet(vm.schema, 'validateDebounceTime', objGet(vm.options, 'validateDebounceTime', 0)) > 0) {
-      //     vm.debouncedValidate();
-      //   } else {
-      // vm.validate();
-      //   }
-      // }
     }, //end updateModelValue
     formatValueToField(value: any) {
       return value;
@@ -96,88 +87,25 @@ export default defineComponent({
     }, //end convertValidator
     validate() {
       const vm = this;
-      let results: any[] = [];
       vm.clearValidationErrors();
       const validator = vm.schema.validator;
       if (validator) {
-        debugger;
-        // vm.errors.push({ isValid: false, fieldId: vm.schema.fieldId });
         const result = validator(vm.value, vm.schema, vm.model);
+        // console.log('value:', vm.value);
+
         const isFieldValid: IError = {
           isValid: result,
           fieldId: vm.schema.fieldId
         };
         vm.errors.push(isFieldValid);
         // console.log('vm.errors', vm.errors);
+        validationStore.setErrors(isFieldValid);
       }
       const isValid: boolean = vm.errors.find((err) => err.isValid === false) ? false : true;
-      console.log('ABSTRACT:', isValid);
-
-      debugger;
       vm.$emit('validated', isValid, vm.errors, vm);
-
-      // const validateAsync = objGet(vm.options, 'validateAsync', false);
-
-      // if (vm.schema.disableValidator === true) {
-      //   return results;
-      // }
-
-      // if (vm.schema.validator && vm.schema.readonly !== true && vm.schema.disabled !== true) {
-      //   const validators: any[] = [];
-      //   if (!isArray(vm.schema.validator)) {
-      //     validators.push(vm.convertValidator(vm.schema.validator).bind(vm));
-      //   } else {
-      //     forEach(vm.schema.validator, (validator: any) => {
-      //       validators.push(vm.convertValidator(validator).bind(vm));
-      //     });
-      //   }
-
-      //   forEach(validators, (validator: any) => {
-      //     if (validateAsync) {
-      //       results.push(validator(vm.value, vm.schema, vm.model));
-      //     } else {
-      //       const result = validator(vm.value, vm.schema, vm.model);
-      //       if (result && isFunction(result.then)) {
-      //         result.then((err: any) => {
-      //           if (err) {
-      //             vm.errors = vm.errors.concat(err);
-      //           }
-      //           const isValid = vm.errors.length === 0;
-      //           vm.$emit('validated', isValid, vm.errors, vm);
-      //         });
-      //       } else if (result) {
-      //         results = results.concat(result);
-      //       }
-      //     }
-      //   });
-      // }
-
-      // const handleErrors = (errors: any) => {
-      //   let fieldErrors: any[] = [];
-      //   forEach(arrayUniq(errors), (err: any) => {
-      //     if (isArray(err) && err.length > 0) {
-      //       fieldErrors = fieldErrors.concat(err);
-      //     } else if (isString(err)) {
-      //       fieldErrors.push(err);
-      //     }
-      //   });
-      //   if (isFunction(vm.schema.onValidated)) {
-      //     vm.schema.onValidated.call(this, vm.model, fieldErrors, vm.schema);
-      //   }
-
-      //   const isValid = fieldErrors.length === 0;
-      //   this.$emit('validated', isValid, fieldErrors, this);
-
-      //   vm.errors = fieldErrors;
-      //   return fieldErrors;
-      // };
-      // if (!validateAsync) {
-      //   return handleErrors(results);
-      // }
-
-      // return Promise.all(results).then(handleErrors);
     }, //end validate
     clearValidationErrors() {
+      validationStore.resetErrors();
       this.errors?.splice(0);
     }, //end clearValidationErrors
     debouncedValidate() {

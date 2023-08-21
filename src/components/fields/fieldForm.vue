@@ -26,9 +26,6 @@ export default defineComponent<IProps>({
       // this.$emit('model-updated', newVal, modelName);
     },
     onFieldValidated(res: any, errors: any, field: TField) {
-      debugger;
-      console.log('fieldForm:', res);
-
       this.$emit('validated', res, errors, field);
     }, //end onFieldValidated
     onSubmit(event: Event) {

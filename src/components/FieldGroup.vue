@@ -50,9 +50,8 @@ export default defineComponent({
     errors: {
       handler(newVal: IError[]) {
         const vm = this;
-        debugger;
         const validStatus = newVal.findIndex((err: IError) => err.isValid === false);
-        console.log('validStatus>>>', validStatus);
+        // console.log('validStatus>>>', validStatus);
 
         const isValid = validStatus < 0 ? true : false;
         vm.$emit('validated', isValid, newVal, vm);
@@ -84,8 +83,6 @@ export default defineComponent({
           });
         });
       }
-      debugger;
-      console.log('vm.errors', vm.errors);
     } //end onFieldValidated
   }
 });

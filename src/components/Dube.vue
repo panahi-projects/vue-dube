@@ -2,6 +2,7 @@
 import { PropType, defineComponent, ref } from 'vue';
 import { IDube, IModel, ISchema, TField, IOprtions } from '@/interfaces';
 import FieldGroup from './FieldGroup.vue';
+import { validationStore } from '@/stores';
 
 export default defineComponent({
   props: {
@@ -24,7 +25,8 @@ export default defineComponent({
       this.$emit('model-updated', newValue, model);
     },
     onFieldValidated(res: any, errors: any, field: TField) {
-      debugger;
+      let _errors = validationStore.getErrors();
+      console.log({ _errors });
       this.$emit('validated', res, errors, field);
     }
   },

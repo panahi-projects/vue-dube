@@ -219,9 +219,6 @@ const onModelUpdated = (newVal: any, modelName: any) => {
   model.value[modelName] = newVal;
 };
 const onFieldValidated = (res: any, errors: any, field: TField) => {
-  debugger;
-  console.log('App:', res, errors);
-
   isValid.value = res;
 };
 </script>
